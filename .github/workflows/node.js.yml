@@ -11,18 +11,24 @@ jobs:
 
     strategy:
       matrix:
-        package-manager: ['npm@latest-2', 'npm@latest-3', 'npm@latest-4', 'npm@latest-5', 'npm@latest-6', 'npm@next-7', 'yarn', 'yarn@latest', 'pnpm@latest-3', 'pnpm@latest-4', 'pnpm']
+        package-manager: ['npm@latest-2', 'npm@latest-3', 'npm@latest-4', 'npm@latest-5', 'npm@latest-6', 'yarn', 'pnpm@latest-3', 'pnpm@latest-4', 'pnpm']
+        node-version: [10]
         include:
           - package-manager: 'yarn@latest'
+            node-version: 10
             berry: true
+          - package-manager: 'npm@latest-1'
+            node-version: 8
+          - package-manager: 'npm@next-7'
+            node-version: 12
       fail-fast: false
 
     steps:
     - uses: actions/checkout@v2
-    - name: Use Node.js 10
+    - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
       with:
-        node-version: 10
+        node-version: ${{ matrix.node-version }}
 
     - name: Install package manager
       run: |
