@@ -11,7 +11,11 @@ jobs:
 
     strategy:
       matrix:
-        package-manager: ['npm@latest-1', 'npm@latest-2', 'npm@latest-3', 'npm@latest-4', 'npm@latest-5', 'npm@latest-6', 'npm@next-7', 'yarn', 'pnpm@latest-3', 'pnpm@latest-4', 'pnpm']
+        package-manager: ['npm@latest-2', 'npm@latest-3', 'npm@latest-4', 'npm@latest-5', 'npm@latest-6', 'npm@next-7', 'yarn', 'yarn@latest', 'pnpm@latest-3', 'pnpm@latest-4', 'pnpm']
+        include:
+          - package-manager: 'yarn@latest'
+            berry: true
+      fail-fast: false
 
     steps:
     - uses: actions/checkout@v2
@@ -19,13 +23,18 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: 10
+
     - name: Install package manager
       run: npm install -g ${{ matrix.package-manager }}
+    - name: Install Yarn 2
+      run: yarn set version berry
+      if: matrix.berry
     - name: Install dependencies
       run: |
         pm=${{ matrix.package-manager }}
         ${pm%@*} install
     - run: npm test
+
     - name: Install debug
       run: |
         pm=${{ matrix.package-manager }}
