@@ -1,0 +1,23 @@
+{
+  "name": "peer-deps-meta-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ylemkimon/peer-deps-meta-test.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ylemkimon/peer-deps-meta-test/issues"
+  },
+  "homepage": "https://github.com/ylemkimon/peer-deps-meta-test#readme",
+  "private": true,
+  "dependencies": {
+    "follow-redirects": "^1.13.0"
+  }
+}
