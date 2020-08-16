@@ -25,19 +25,18 @@ jobs:
         node-version: 10
 
     - name: Install package manager
-      run: npm install -g ${{ matrix.package-manager }}
+      run: |
+        pm=${{ matrix.package-manager }}
+        npm install -g $pm
+        echo "::set-env name=PM::${pm%@*}"
     - name: Install Yarn 2
       run: yarn set version berry
       if: matrix.berry
     - name: Install dependencies
-      run: |
-        pm=${{ matrix.package-manager }}
-        ${pm%@*} install
-    - run: npm test
+      run: $PM install
+    - run: $PM test
 
     - name: Install debug
-      run: |
-        pm=${{ matrix.package-manager }}
-        ${pm%@*} add debug
-    - run: DEBUG=* npm test
+      run: $PM add debug || $PM install debug
+    - run: DEBUG=* $PM test
       
