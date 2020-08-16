@@ -18,9 +18,9 @@ jobs:
             node-version: 10
             berry: true
           - package-manager: 'npm@latest-1'
-            node-version: 8
+            node-version: 6
           - package-manager: 'npm@next-7'
-            node-version: 12
+            node-version: 14
       fail-fast: false
 
     steps:
