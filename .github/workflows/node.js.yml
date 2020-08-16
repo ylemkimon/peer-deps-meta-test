@@ -5,20 +5,19 @@ on:
     branches: [ master, patch ]
 
 jobs:
-  build:
-
+  test:
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        package-manager: ['npm@latest-2', 'npm@latest-3', 'npm@latest-4', 'npm@latest-5', 'npm@latest-6', 'npm@7.0.0-beta.3', 'yarn', 'pnpm@latest-3', 'pnpm@latest-4', 'pnpm']
+        package-manager: ['npm@latest-2', 'npm@latest-3', 'npm@latest-4', 'npm@latest-5', 'npm@latest-6', 'yarn', 'pnpm@latest-3', 'pnpm@latest-4', 'pnpm']
         node-version: [10]
         include:
+          - package-manager: 'npm@latest-1'
+            node-version: 6
           - package-manager: 'yarn@latest'
             node-version: 10
             berry: true
-          - package-manager: 'npm@latest-1'
-            node-version: 6
       fail-fast: false
 
     steps:
@@ -43,4 +42,3 @@ jobs:
     - name: Install debug
       run: $PM add debug || $PM install debug
     - run: DEBUG=* $PM test
-      
