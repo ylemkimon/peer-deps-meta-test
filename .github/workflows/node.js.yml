@@ -1,0 +1,34 @@
+name: Test
+
+on:
+  push:
+    branches: [ master, patch ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        package-manager: ['npm@latest-1', 'npm@latest-2', 'npm@latest-3', 'npm@latest-4', 'npm@latest-5', 'npm@latest-6', 'npm@next-7', 'yarn', 'pnpm@latest-3', 'pnpm@latest-4', 'pnpm']
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js 10
+      uses: actions/setup-node@v1
+      with:
+        node-version: 10
+    - name: Install package manager
+      run: npm install -g ${{ matrix.package-manager }}
+    - name: Install dependencies
+      run: |
+        pm=${{ matrix.package-manager }}
+        ${pm%@*} install
+    - run: npm test
+    - name: Install debug
+      run: |
+        pm=${{ matrix.package-manager }}
+        ${pm%@*} add debug
+    - run: DEBUG=* npm test
+      
