@@ -18,6 +18,6 @@
   "homepage": "https://github.com/ylemkimon/peer-deps-meta-test#readme",
   "private": true,
   "dependencies": {
-    "follow-redirects": "^1.13.0"
+    "follow-redirects": "ylemkimon/follow-redirects#patch-1"
   }
 }
